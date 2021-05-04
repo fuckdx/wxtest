@@ -68,7 +68,19 @@ def telegram_bot(title, content):
 # 企业微信推送
 def enterprise_wechat(title, content):
     html = markdown.markdown(content)
-    access_token = "vn8ju5pL3vfz48YdCWCRd4q_GbIgBtwAHfUqXjPFlUttjdJN_1yPXk6FHR5zWSkN57fn96R8DWhrjwyOkHQXi-SnWQNZ0KIoH23gL0CGMQGDHLHOn4IotHjDyOXKskW_pdoCfTLkve5pFwtkQuBpEefVNRkGzSZeJ3YAx_4sJa6bi--z69jz1yuCHEWoBVH2V7Gy5bar4-3-zYMWctkiBA"
+    access_token = ""
+    print (access_token)
+    if not GlobalVariable.ACCESSTOKEN:
+        if not GlobalVariable.CORPID or not GlobalVariable.CORPSECRET or not GlobalVariable.TOUSER or not GlobalVariable.AGENTID:
+            print("企业微信应用消息推送的变量未设置或未设置完全!!")
+            return
+        res = requests.get("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={GlobalVariable.CORPID}&corpsecret={GlobalVariable.CORPSECRET}")
+        access_token = res.json().get("access_token", False)
+    else:
+        if not GlobalVariable.TOUSER or not GlobalVariable.AGENTID:
+            print("企业微信应用消息推送的变量未设置或未设置完全!!")
+            return
+        access_token = GlobalVariable.ACCESSTOKEN
     if not GlobalVariable.THUMB_MEDIA_ID:
         data = {
             "touser": GlobalVariable.TOUSER,
