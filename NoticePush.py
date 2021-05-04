@@ -68,7 +68,7 @@ def telegram_bot(title, content):
 # 企业微信推送
 def enterprise_wechat(title, content):
     html = markdown.markdown(content)
-    access_token = GlobalVariable.ACCESSTOKEN
+    access_token = "vn8ju5pL3vfz48YdCWCRd4q_GbIgBtwAHfUqXjPFlUttjdJN_1yPXk6FHR5zWSkN57fn96R8DWhrjwyOkHQXi-SnWQNZ0KIoH23gL0CGMQGDHLHOn4IotHjDyOXKskW_pdoCfTLkve5pFwtkQuBpEefVNRkGzSZeJ3YAx_4sJa6bi--z69jz1yuCHEWoBVH2V7Gy5bar4-3-zYMWctkiBA"
     if not GlobalVariable.THUMB_MEDIA_ID:
         data = {
             "touser": GlobalVariable.TOUSER,
