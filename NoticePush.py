@@ -68,18 +68,7 @@ def telegram_bot(title, content):
 # 企业微信推送
 def enterprise_wechat(title, content):
     html = markdown.markdown(content)
-    access_token = ""
-    if not GlobalVariable.ACCESSTOKEN:
-        if not GlobalVariable.CORPID or not GlobalVariable.CORPSECRET or not GlobalVariable.TOUSER or not GlobalVariable.AGENTID:
-            print("企业微信应用消息推送的变量未设置或未设置完全!!")
-            return
-        res = requests.get("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={GlobalVariable.CORPID}&corpsecret={GlobalVariable.CORPSECRET}")
-        access_token = res.json().get("access_token", False)
-    else:
-        if not GlobalVariable.TOUSER or not GlobalVariable.AGENTID:
-            print("企业微信应用消息推送的变量未设置或未设置完全!!")
-            return
-        access_token = GlobalVariable.ACCESSTOKEN
+    access_token = GlobalVariable.ACCESSTOKEN
     if not GlobalVariable.THUMB_MEDIA_ID:
         data = {
             "touser": GlobalVariable.TOUSER,
@@ -89,7 +78,7 @@ def enterprise_wechat(title, content):
                 "content": content
             }
         }
-        res = requests.post(url=f"https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={access_token}",
+        res = requests.post(url="https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token={access_token}",
                             data=json.dumps(data)).json()
         errmsg = res["errmsg"]
         if errmsg == "ok":
